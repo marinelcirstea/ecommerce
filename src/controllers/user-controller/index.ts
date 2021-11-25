@@ -6,7 +6,7 @@ import deleteUserById from "./delete-user";
 import loginUser from "./login-user";
 import logoutUser from "./logout-user";
 
-const userService = Object.freeze({
+export const userController = Object.freeze({
   getUsers,
   getCurrentUser,
   createUser,
@@ -15,5 +15,3 @@ const userService = Object.freeze({
   loginUser,
   logoutUser,
 });
-
-export default userService;
