@@ -1,32 +1,48 @@
-// import { Request, Response } from "express";
-// import CustomError from "../../libs/errors/custom-error";
-// import User from "../../models/User";
-const getUsers = () => {};
-// const getUsers = async (_req: Request, res: Response) => {
-//   const session = res.locals.token;
-//   // [TODO:1000]: implement limits and offsets when fetching users
-//   // const {limit, offset} = req.query
+const getUsers = () => {
+  /**
+  [TODO]
+  Create platform employee values for User model
+  
+  something like this?
+  UserModel{
+      ... normal user data ...
 
-//   const user = await User.findOne({ _id: session.userId });
-//   if (!user) {
-//     throw new CustomError("Something happened. Try again later.", 400);
-//   }
-//   return res.status(200).json({ success: true, message: "", user });
-//   /**
-//  [TODO:1001]: Add param isPlatformEmployee and employee role based authorization
+    isPlatformEmployee: {type:Boolean, default:false}
+    employeeRights:{
+        users:{
+            view:{type:Boolean, default:false},
+            update:{type:Boolean, default:false},
+            delete:{type:Boolean, default:false},
+        },
+        stores:{
+            view:{type:Boolean, default:false},
+            update:{type:Boolean, default:false},
+            delete:{type:Boolean, default:false},
+        }
+    }
+  }
 
-//  if not platform employee and authorized to view users,
-//   return the current user(the person making the request)
+  const session = res.locals.session // guaranteed due to auth middleware
 
-//  if(!user.isPlatformEmployee){
-//     return res.status(200).json({success:true, message:"", user})
-//   }
+  const user = await User.findOne({_id:session.userId})
 
-//   if(!user.isPlatformEmployee && user.platformEmployeeRights.viewUsers){
 
-//   }
+    if(!user.isPlatformEmployee || !user.employeeRights.users.view){
+        throw new CustomError("Unauthorized!", 403)
+    }
 
-//   */
-// };
+    
+
+
+
+
+
+
+
+
+
+
+   */
+};
 
 export default getUsers;

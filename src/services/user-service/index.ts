@@ -7,19 +7,12 @@ import loginUser from "./login-user";
 import logoutUser from "./logout-user";
 
 const userService = Object.freeze({
-  // getUsers
   getUsers,
-  // getCurrentUser
   getCurrentUser,
-  // createUser
   createUser,
-  // updateUser
   updateUserById,
-  // deleteUser
   deleteUserById,
-  // login
   loginUser,
-  // logout
   logoutUser,
 });
 

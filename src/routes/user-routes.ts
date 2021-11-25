@@ -4,10 +4,9 @@ import catchException from "../middlewares/catch-exception";
 import userService from "../services/user-service";
 
 const userRoutes = Router();
-// health check
-userRoutes.get("/users/health", (_req, res: Response) => {
-  res.status(200).end();
-});
+
+userRoutes.get("/users/health", (_req, res: Response) => res.status(200).end());
+
 // userRoutes.get("/users", authMiddleware, catchException(userService.getUsers));
 userRoutes.post("/users", catchException(userService.createUser));
 userRoutes.post("/users/login", catchException(userService.loginUser));
