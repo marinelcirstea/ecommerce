@@ -1,5 +1,5 @@
 import { hash as hasher, compare as comparer } from "bcryptjs";
-import { PASSWORD_SALT } from "../configs/user-config";
+import GC from "@configs";
 
 export interface IHasher {
   (str: string): Promise<string>;
@@ -13,7 +13,7 @@ export const hash: IHasher = async (str) => {
     throw new Error(`Expected string, received ${typeof str}`);
   }
 
-  const salt = PASSWORD_SALT || 10;
+  const salt = GC.PASSWORD_SALT || 10;
 
   const hashedString = await hasher(str, salt);
 

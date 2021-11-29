@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 
-import { Cookies } from "../interfaces";
-import CustomError from "../libs/errors/custom-error";
+import { Cookies } from "@interfaces";
+import CustomError from "@libs/custom-error";
 
-import { verifyAccessToken } from "../libs/jwt";
+import { verifyAccessToken } from "@libs/jwt";
 
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
   try {

@@ -11,6 +11,16 @@
     "build": "rimraf dist && tsc",
     "start": "node dist/server.js"
   },
+  "_moduleAliases": {
+    "@configs": "dist/configs",
+    "@controllers": "dist/controllers",
+    "@interfaces": "dist/interfaces",
+    "@libs": "dist/libs",
+    "@middlewares": "dist/middlewares",
+    "@models": "dist/models",
+    "@routes": "dist/routes",
+    "@services": "dist/services"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -21,6 +31,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "module-alias": "^2.2.2",
     "mongoose": "^6.0.13"
   },
   "devDependencies": {

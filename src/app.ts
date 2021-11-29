@@ -3,7 +3,7 @@ import compression from "compression";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import router from "./routes";
+import globalApiRouter from "./routes";
 import errorHandler from "./middlewares/error-handler";
 
 const app = express();
@@ -27,7 +27,7 @@ app.use(cookieParser());
 /**
  * Global API router
  */
-app.use("/api", router);
+app.use("/api", globalApiRouter);
 /**
  * Global error handler
  */

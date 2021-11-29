@@ -1,4 +1,4 @@
-export interface IRandomObject {
+export interface ISomeObject {
   [key: string]: any;
 }
 export enum Cookies {

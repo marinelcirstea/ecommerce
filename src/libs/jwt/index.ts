@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_SECRET, IS_PRODUCTION, REFRESH_TOKEN_SECRET } from "../../configs";
+import GC from "@configs";
 import { CookieOptions, Response } from "express";
 import jwt from "./jwt";
 
@@ -24,7 +24,7 @@ function signAccessToken(payload: AccessTokenPayload) {
       iat: Date.now(),
       exp: TokenExpiration.Access,
     },
-    `${ACCESS_TOKEN_SECRET}`
+    `${GC.ACCESS_TOKEN_SECRET}`
   );
 }
 
@@ -35,14 +35,14 @@ function signRefreshToken(payload: RefreshTokenPayload) {
       iat: Date.now(),
       exp: TokenExpiration.Refresh,
     },
-    REFRESH_TOKEN_SECRET
+    GC.REFRESH_TOKEN_SECRET
   );
 }
 
 const defaultCookieOptions: CookieOptions = {
   httpOnly: true,
-  secure: IS_PRODUCTION,
-  sameSite: IS_PRODUCTION ? "strict" : "lax",
+  secure: GC.IS_PRODUCTION,
+  sameSite: GC.IS_PRODUCTION ? "strict" : "lax",
   // domain: config.baseDomain,
   path: "/",
 };
@@ -58,11 +58,11 @@ const accessTokenCookieOptions: CookieOptions = {
 };
 
 export function verifyRefreshToken(token: string) {
-  return jwt.decode(token, REFRESH_TOKEN_SECRET) as RefreshToken;
+  return jwt.decode(token, GC.REFRESH_TOKEN_SECRET) as RefreshToken;
 }
 
 export function verifyAccessToken(token: string) {
-  return jwt.decode(token, ACCESS_TOKEN_SECRET) as AccessToken;
+  return jwt.decode(token, GC.ACCESS_TOKEN_SECRET) as AccessToken;
 }
 
 export function buildTokens(user: IUserDocument) {
