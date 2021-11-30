@@ -50,3 +50,28 @@ export interface IUserDocument extends IUserModel {
   _id: string;
   tokenVersion: number;
 }
+
+// interface IProductModelImageStructure {
+//   order: number;
+//   url: string;
+//   _id?: string;
+// }
+
+// interface IProductModelCategoryStructure {
+//   title: string;
+//   categoryId: string;
+// }
+
+export interface IProductModel {
+  title: string;
+  metaTitle: string;
+  description: string;
+  metaDescription: string;
+  slug: string;
+  // categories: IProductModelCategoryStructure[];
+  // thumbnail?: string;
+  // images?: IProductModelImageStructure[];
+}
+export interface IProductDocument extends IProductModel {
+  _id: string;
+}
