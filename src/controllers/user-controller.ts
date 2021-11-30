@@ -12,7 +12,7 @@ async function createUser(req: Request, res: Response) {
   return res.status(200).json({ success: true, message: "User created successfully." });
 }
 
-const getCurrentUser = async (_req: Request, res: Response) => {
+async function getCurrentUser(_req: Request, res: Response) {
   const session = res.locals.token;
 
   const user = await userService.getUser(
@@ -21,9 +21,9 @@ const getCurrentUser = async (_req: Request, res: Response) => {
   );
 
   return res.status(200).json({ success: true, message: "User fetched successfully.", user });
-};
+}
 
-const deleteCurrentUser = async (_req: Request, res: Response) => {
+async function deleteCurrentUser(_req: Request, res: Response) {
   const session = res.locals.token;
 
   await userService.deleteUser({ _id: session.userId });
@@ -31,14 +31,14 @@ const deleteCurrentUser = async (_req: Request, res: Response) => {
   clearTokens(res);
 
   return res.status(200).json({ success: true, message: "User deleted successfully." });
-};
+}
 
 async function updateCurrentUser(req: Request, res: Response) {
   const session = res.locals.token;
 
   await userService.updateUser({ _id: session.userId }, req.body);
 
-  return res.status(200).json({ success: true, message: "User update not set up" });
+  return res.status(200).json({ success: true, message: "User updated." });
 }
 
 //

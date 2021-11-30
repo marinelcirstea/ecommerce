@@ -10,8 +10,6 @@ export default function obj(someObject: { [key: string]: any }) {
 
     arr.forEach((key) => delete someObject[key]);
 
-    console.log("someObject passed through exclude filter: ", someObject);
-
     return someObject;
   }
 
@@ -21,8 +19,6 @@ export default function obj(someObject: { [key: string]: any }) {
     }
 
     Object.keys(someObject).forEach((key) => !arr.includes(key) && delete someObject[key]);
-
-    console.log("someObject passed through pick filter: ", someObject);
 
     return someObject;
   }

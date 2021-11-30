@@ -5,6 +5,10 @@ import { makeUser } from "./factory";
 import { makeUpdateUser } from "./factory/make-update-user";
 import obj from "@libs/object-utils";
 
+//
+// TODO: add relevant types to arguments
+//
+
 async function createUser(userData: IUserModel) {
   const validUser = await makeUser(userData);
 
@@ -54,7 +58,6 @@ async function getUser(filter: any, options?: IFilterOptions) {
   }
 }
 
-// TODO: add relevant types to arguments
 async function updateUser(filter: any, data: any) {
   if (!filter || !Object.keys(filter)[0]) {
     throw new Error("Empty object passed as collection filter.");
