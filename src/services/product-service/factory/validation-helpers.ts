@@ -16,12 +16,12 @@ export function validateProductTitle(title: string) {
 }
 
 export function validateProductSlug(slug: string) {
-  // (?=[A-Z0-9-]{1,160}$) // if slug.length statement is faster than lookup
-  const reg = /^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/;
-
   if (typeof slug !== "string") {
     throw new CustomError(`Slug is invalid. Expected string, but received ${typeof slug}.`, 400);
   }
+
+  // (?=[A-Z0-9-]{1,160}$) // if(slug.length) is faster than lookup
+  const reg = /^[A-Z0-9]+(?:-[A-Z0-9]+)*$/i;
 
   // TODO? Should we create slugs for the products that (somehow)come without them?
   // if (!slug) {
