@@ -1,18 +1,18 @@
 import { IProductDocument } from "@interfaces";
 import { model, Schema } from "mongoose";
 
-const UserSchema = new Schema<IProductDocument>(
+const ProductSchema = new Schema<IProductDocument>(
   {
     title: { type: String, required: true },
-    metaTitle: { type: String },
-    description: { type: String },
-    metaDescription: { type: String },
+    metaTitle: { type: String, required: true },
+    description: { type: String, required: true },
+    metaDescription: { type: String, required: true },
     slug: { type: String, required: true },
     // add the rest later
   },
   { timestamps: true }
 );
 
-const UserModel = model<IProductDocument>("User", UserSchema);
+const ProductModel = model<IProductDocument>("Product", ProductSchema);
 
-export default UserModel;
+export default ProductModel;
