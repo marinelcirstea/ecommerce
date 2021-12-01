@@ -15,16 +15,20 @@ export async function makeProduct({
   slug,
 }: IProductModel): Promise<Readonly<IProductModel>> {
   validateProductTitle(title);
-  validateProductMetaTitle(title);
+
+  metaTitle && validateProductMetaTitle(title);
+
   validateProductDescription(description);
-  validateProductMetaDescription(metaDescription);
+
+  metaDescription && validateProductMetaDescription(metaDescription);
+
   validateProductSlug(slug);
 
   return Object.freeze({
     title,
-    metaTitle,
+    metaTitle: metaTitle ?? title,
     description,
-    metaDescription,
+    metaDescription: metaDescription ?? description,
     slug,
   });
 }
