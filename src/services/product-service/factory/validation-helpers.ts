@@ -1,5 +1,6 @@
 import CustomError from "@libs/custom-error";
 import { isString, minmax } from "@libs/string-utils";
+import GC from "@configs";
 
 export function validateProductTitle(title: string) {
   if (!isString(title)) {
@@ -9,9 +10,67 @@ export function validateProductTitle(title: string) {
     );
   }
 
-  if (!minmax(title, 1, 160)) {
+  if (!minmax(title, GC.PRODUCT_TITLE_MIN_LENGTH, GC.PRODUCT_TITLE_MAX_LENGTH)) {
     // TODO: move min and max to constant variables in configs
-    throw new CustomError(`Product title is invalid. Keep it between 1 and 160 characters.`, 400);
+    throw new CustomError(
+      `Product title is invalid. Keep it between ${GC.PRODUCT_TITLE_MIN_LENGTH} and ${GC.PRODUCT_TITLE_MAX_LENGTH} characters.`,
+      400
+    );
+  }
+}
+
+export function validateProductMetaTitle(metaTitle: string) {
+  if (!isString(metaTitle)) {
+    throw new CustomError(
+      `Product meta title is invalid. Expected string, but received ${typeof metaTitle}.`,
+      400
+    );
+  }
+
+  if (!minmax(metaTitle, GC.PRODUCT_META_TITLE_MIN_LENGTH, GC.PRODUCT_META_TITLE_MAX_LENGTH)) {
+    // TODO: move min and max to constant variables in configs
+    throw new CustomError(
+      `Product meta title is invalid. Keep it between ${GC.PRODUCT_META_TITLE_MIN_LENGTH} and ${GC.PRODUCT_META_TITLE_MAX_LENGTH} characters.`,
+      400
+    );
+  }
+}
+
+export function validateProductDescription(description: string) {
+  if (!isString(description)) {
+    throw new CustomError(
+      `Product description is invalid. Expected string, but received ${typeof description}.`,
+      400
+    );
+  }
+
+  if (!minmax(description, GC.PRODUCT_DESCRIPTION_MIN_LENGTH, GC.PRODUCT_DESCRIPTION_MAX_LENGTH)) {
+    // TODO: move min and max to constant variables in configs
+    throw new CustomError(
+      `Product description is invalid. Keep it between ${GC.PRODUCT_DESCRIPTION_MIN_LENGTH} and ${GC.PRODUCT_DESCRIPTION_MAX_LENGTH} characters.`,
+      400
+    );
+  }
+}
+
+// meta description has the same limitations as descriptions.
+// Created another function for relevant error display
+export function validateProductMetaDescription(metaDescription: string) {
+  if (!isString(metaDescription)) {
+    throw new CustomError(
+      `Product meta description is invalid. Expected string, but received ${typeof metaDescription}.`,
+      400
+    );
+  }
+
+  if (
+    !minmax(metaDescription, GC.PRODUCT_DESCRIPTION_MIN_LENGTH, GC.PRODUCT_DESCRIPTION_MAX_LENGTH)
+  ) {
+    // TODO: move min and max to constant variables in configs
+    throw new CustomError(
+      `Product meta description is invalid. Keep it between ${GC.PRODUCT_DESCRIPTION_MIN_LENGTH} and ${GC.PRODUCT_DESCRIPTION_MAX_LENGTH} characters.`,
+      400
+    );
   }
 }
 
