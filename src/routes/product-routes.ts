@@ -5,7 +5,7 @@ import productController from "@controllers/product-controller";
 export const productRoutes = Router();
 
 /**
- * Create a new account
+ * Create a new product
  * @access  public (only for testing)
  */
 productRoutes.post("/products", catchException(productController.createProduct));

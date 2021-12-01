@@ -19,6 +19,8 @@ export function validateProductTitle(title: string) {
   }
 }
 
+// meta description has the same limitations as title.
+// Created another function for relevant error display
 export function validateProductMetaTitle(metaTitle: string) {
   if (!isString(metaTitle)) {
     throw new CustomError(
@@ -27,10 +29,10 @@ export function validateProductMetaTitle(metaTitle: string) {
     );
   }
 
-  if (!minmax(metaTitle, GC.PRODUCT_META_TITLE_MIN_LENGTH, GC.PRODUCT_META_TITLE_MAX_LENGTH)) {
+  if (!minmax(metaTitle, GC.PRODUCT_TITLE_MIN_LENGTH, GC.PRODUCT_TITLE_MAX_LENGTH)) {
     // TODO: move min and max to constant variables in configs
     throw new CustomError(
-      `Product meta title is invalid. Keep it between ${GC.PRODUCT_META_TITLE_MIN_LENGTH} and ${GC.PRODUCT_META_TITLE_MAX_LENGTH} characters.`,
+      `Product meta title is invalid. Keep it between ${GC.PRODUCT_TITLE_MIN_LENGTH} and ${GC.PRODUCT_TITLE_MAX_LENGTH} characters.`,
       400
     );
   }
