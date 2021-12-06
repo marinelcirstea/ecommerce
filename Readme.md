@@ -5,11 +5,17 @@
 ### The stack so far
 
 `express` for the server
+
 `mongoose` for working with MongoDb
+
 `bcryptjs` for hashing and comparing passwords
+
 `cookie` and `cookie-parser` for working with cookies
+
 `cors` to enable cross-site requests
+
 `module-alias` so we can use custom path aliases in production
+
 `JWT` module is hand written(can be found in `libs`)
 
 ##### Here's the flow of the app, so you don't have to figure it out
