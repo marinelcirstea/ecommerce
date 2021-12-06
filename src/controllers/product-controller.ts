@@ -8,13 +8,24 @@ async function createProduct(req: Request, res: Response) {
 }
 
 async function getProduct(req: Request, res: Response) {
-  return res.status(200).json({ success: false, message: "Not set up yet." });
+  const product = await productService.getProduct(
+    { slug: req.params.slug },
+    { exclude: ["__v", "createdAt", "updatedAt"] }
+  );
+
+  return res.status(200).json({ success: true, message: "Product fetched successfully.", product });
 }
+
 async function updateProduct(req: Request, res: Response) {
-  return res.status(200).json({ success: false, message: "Not set up yet." });
+  await productService.updateProduct({ _id: req.params.productId }, req.body);
+
+  return res.status(200).json({ success: true, message: "Product updated successfully." });
 }
+
 async function deleteProduct(req: Request, res: Response) {
-  return res.status(200).json({ success: false, message: "Not set up yet." });
+  await productService.deleteProduct({ _id: req.params.productId });
+
+  return res.status(200).json({ success: true, message: "Product deleted successfully." });
 }
 
 export default Object.freeze({
