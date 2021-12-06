@@ -75,3 +75,8 @@ export interface IProductModel {
 export interface IProductDocument extends IProductModel {
   _id: string;
 }
+
+export interface IFilterOptions {
+  exclude?: string[];
+  pick?: string[];
+}

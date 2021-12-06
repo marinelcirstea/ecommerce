@@ -1,4 +1,4 @@
-import { IUserModel } from "@interfaces/";
+import { IFilterOptions, IUserModel } from "@interfaces/";
 import { userCollection } from "../db-collection-factory";
 import CustomError from "@libs/custom-error";
 import { makeUser } from "./factory";
@@ -21,11 +21,6 @@ async function createUser(userData: IUserModel) {
   const newUser = await userCollection.createOne(validUser);
 
   return newUser;
-}
-
-export interface IFilterOptions {
-  exclude?: string[];
-  pick?: string[];
 }
 
 async function getUser(filter: any, options?: IFilterOptions) {
