@@ -3,7 +3,7 @@ import CustomError from "@libs/custom-error";
 import obj from "@libs/object-utils";
 import { productCollection } from "@services/db-collection-factory";
 import { makeProduct } from "./factory";
-import { makeUpdateProduct } from "./factory/make-update-product";
+import { makeUpdateProduct } from "./factory";
 
 //
 // TODO: Add relevant types
@@ -13,7 +13,7 @@ async function createProduct(reqBody: IProductModel) {
   // this is more like validation, not an actual factory..
   // it could actually just go through validation without returning anything
   // Unless we decide to create the slugs server-side or do some future changes
-  const validProduct = await makeProduct(reqBody);
+  const validProduct = makeProduct(reqBody);
 
   const newProduct = await productCollection.createOne(validProduct);
 
@@ -54,7 +54,7 @@ async function updateProduct(filter: any, data: any) {
   if (!filter || !Object.keys(filter)[0]) {
     throw new Error("Empty object passed as collection filter.");
   }
-  const validUpdate = await makeUpdateProduct(data);
+  const validUpdate = makeUpdateProduct(data);
 
   const ack = await productCollection.updateOne(filter, validUpdate);
   if (!ack.acknowledged) {

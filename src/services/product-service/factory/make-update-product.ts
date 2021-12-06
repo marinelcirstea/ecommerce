@@ -7,7 +7,7 @@ import {
   validateProductTitle,
 } from "./validation-helpers";
 
-export async function makeUpdateProduct({
+export function makeUpdateProduct({
   title,
   metaTitle,
   description,

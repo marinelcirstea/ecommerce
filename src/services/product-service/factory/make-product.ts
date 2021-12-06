@@ -7,13 +7,13 @@ import {
   validateProductTitle,
 } from "./validation-helpers";
 
-export async function makeProduct({
+export function makeProduct({
   title,
   metaTitle,
   description,
   metaDescription,
   slug,
-}: IProductModel): Promise<Readonly<IProductModel>> {
+}: IProductModel): Readonly<IProductModel> {
   validateProductTitle(title);
 
   metaTitle && validateProductMetaTitle(title);
