@@ -16,14 +16,14 @@ productRoutes.post("/products", catchException(productController.createProduct))
  * Get product
  * @access  public
  */
-productRoutes.get("/products/slug", catchException(productController.getProduct));
+productRoutes.get("/products/:slug", catchException(productController.getProduct));
 
 /**
  * Update product
  * @access  private
  */
 productRoutes.put(
-  "/products/productId",
+  "/products/:productId",
   authMiddleware,
   catchException(productController.updateProduct)
 );
@@ -33,7 +33,7 @@ productRoutes.put(
  * @access  private
  */
 productRoutes.delete(
-  "/products/productId",
+  "/products/:productId",
   authMiddleware,
   catchException(productController.deleteProduct)
 );
