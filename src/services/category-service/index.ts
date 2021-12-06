@@ -2,7 +2,7 @@ import { IFilterOptions, ICategoryModel } from "@interfaces/";
 import CustomError from "@libs/custom-error";
 import obj from "@libs/object-utils";
 import { categoryCollection } from "@services/db-collection-factory";
-import { makeCategory } from "./factory";
+import { makeCategory, makeUpdateCategory } from "./factory";
 
 //
 // TODO: Add relevant types
@@ -49,7 +49,18 @@ async function getCategory(filter: any, options?: IFilterOptions) {
   }
 }
 
-async function updateCategory(filter: any, data: any) {}
+async function updateCategory(filter: any, data: any) {
+  if (!filter || !Object.keys(filter)[0]) {
+    throw new Error("Empty object passed as collection filter.");
+  }
+  const validUpdate = makeUpdateCategory(data);
+
+  const ack = await categoryCollection.updateOne(filter, validUpdate);
+  if (!ack.acknowledged) {
+    // TODO: add critical error logging
+    throw new CustomError(`Failed to update category.`, 400);
+  }
+}
 
 async function deleteCategory(filter: any) {}
 
