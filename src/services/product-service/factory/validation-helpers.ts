@@ -11,7 +11,6 @@ export function validateProductTitle(title: string) {
   }
 
   if (!minmax(title, GC.PRODUCT_TITLE_MIN_LENGTH, GC.PRODUCT_TITLE_MAX_LENGTH)) {
-    // TODO: move min and max to constant variables in configs
     throw new CustomError(
       `Product title is invalid. Keep it between ${GC.PRODUCT_TITLE_MIN_LENGTH} and ${GC.PRODUCT_TITLE_MAX_LENGTH} characters.`,
       400
@@ -30,7 +29,6 @@ export function validateProductMetaTitle(metaTitle: string) {
   }
 
   if (!minmax(metaTitle, GC.PRODUCT_TITLE_MIN_LENGTH, GC.PRODUCT_TITLE_MAX_LENGTH)) {
-    // TODO: move min and max to constant variables in configs
     throw new CustomError(
       `Product meta title is invalid. Keep it between ${GC.PRODUCT_TITLE_MIN_LENGTH} and ${GC.PRODUCT_TITLE_MAX_LENGTH} characters.`,
       400
@@ -47,7 +45,6 @@ export function validateProductDescription(description: string) {
   }
 
   if (!minmax(description, GC.PRODUCT_DESCRIPTION_MIN_LENGTH, GC.PRODUCT_DESCRIPTION_MAX_LENGTH)) {
-    // TODO: move min and max to constant variables in configs
     throw new CustomError(
       `Product description is invalid. Keep it between ${GC.PRODUCT_DESCRIPTION_MIN_LENGTH} and ${GC.PRODUCT_DESCRIPTION_MAX_LENGTH} characters.`,
       400
@@ -68,7 +65,6 @@ export function validateProductMetaDescription(metaDescription: string) {
   if (
     !minmax(metaDescription, GC.PRODUCT_DESCRIPTION_MIN_LENGTH, GC.PRODUCT_DESCRIPTION_MAX_LENGTH)
   ) {
-    // TODO: move min and max to constant variables in configs
     throw new CustomError(
       `Product meta description is invalid. Keep it between ${GC.PRODUCT_DESCRIPTION_MIN_LENGTH} and ${GC.PRODUCT_DESCRIPTION_MAX_LENGTH} characters.`,
       400
