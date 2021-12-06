@@ -72,7 +72,28 @@ export interface IProductModel {
   // thumbnail?: string;
   // images?: IProductModelImageStructure[];
 }
+
 export interface IProductDocument extends IProductModel {
+  _id: string;
+}
+
+// interface ICategoryModelImageStructure {
+//   order: number;
+//   url: string;
+//   _id?: string;
+// }
+
+export interface ICategoryModel {
+  title: string;
+  metaTitle: string;
+  description: string;
+  metaDescription: string;
+  slug: string;
+  // thumbnail?: string;
+  // images?: ICategoryModelImageStructure[];
+}
+
+export interface ICategoryDocument extends ICategoryModel {
   _id: string;
 }
 
