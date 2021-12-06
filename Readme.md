@@ -19,8 +19,11 @@
 ##### Let's take the User logic as an example:
 
 `user-routes` hits the `user-controller`
+
 `user-controller` hits the `user-service`
+
 `user-service` hits the `database`
+
 `user-service` can also hit the `ice factory` for validation and/or reconstruction before
 hitting the `database`
 
