@@ -8,9 +8,9 @@ export const minmax: IMinmax = (str, min, max) => {
       `Expected (string, number, number) received (${typeof str}, ${typeof min}, ${typeof max})`
     );
   }
-  if (max && !(min <= max)) {
+  if (max && min > max) {
     throw new Error(`Expected min <= max ; Received min = ${min} & max = ${max}`);
   }
 
-  return str.length >= min && max ? str.length <= max : true;
+  return str.length >= min && (max ? str.length <= max : true);
 };
