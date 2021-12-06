@@ -27,7 +27,9 @@ hitting the `database`
 ## What each piece of logic should do:
 
 `router` - Receive requests and call the `controller`
+
 `controller` - Call the `service` and return a `response`
+
 `service` - Call the factory if needed, work with the `database`, validate and throw relevant errors.
 
 ### Folders
