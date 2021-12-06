@@ -62,7 +62,13 @@ async function updateCategory(filter: any, data: any) {
   }
 }
 
-async function deleteCategory(filter: any) {}
+async function deleteCategory(filter: any) {
+  const del = await categoryCollection.deleteOne(filter);
+
+  if (del.deletedCount === 0) {
+    throw new Error(`Failed to delete document from categories collection.`);
+  }
+}
 
 export default Object.freeze({
   createCategory,
