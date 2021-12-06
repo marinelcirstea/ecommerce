@@ -1,8 +1,8 @@
 # Ecommerce platform with express and mongodb(mongoose)
 
-##### `This project is still in development, it's going to change a lot, please don't use it in production yet.`
+#### `This project is still in development, it's going to change a lot, please don't use it in production yet.`
 
-### The stack so far
+## The stack so far
 
 `express` for the server
 
@@ -18,7 +18,7 @@
 
 `JWT` module is hand written(can be found in `libs`)
 
-##### Here's the flow of the app, so you don't have to figure it out
+### Here's the flow of the app, so you don't have to figure it out
 
 `router => controller => service => database`
 
@@ -41,36 +41,36 @@ hitting the `database`
 
 `service` - Call the factory if needed, work with the `database`, validate and throw relevant errors.
 
-### Folders
+## Folders
 
-##### `configs`
+#### `configs`
 
 ```
 Contains the configs for each service(auth, product, user, etc.)
 Mass export through "index.ts"
 ```
 
-##### `controllers`
+#### `controllers`
 
 ```
 Contains the "iced" controllers for each service
 Not exported globally. Each controller should be imported individually
 ```
 
-##### `interfaces`
+#### `interfaces`
 
 ```
 Shared interfaces(interfaces used by multiple pieces of logic)
 ```
 
-##### `libs`
+#### `libs`
 
 ```
 Custom helper functions and node module wrappers(so we can easily swing
 through different libraries without changing the code in the whole app)
 ```
 
-##### `middlewares`
+#### `middlewares`
 
 ```
 For custom express middlewares.
@@ -79,20 +79,20 @@ For custom express middlewares.
 "error-handler" used to handle exceptions thrown from "catch-exception"
 ```
 
-##### `models`
+#### `models`
 
 ```
 Pretty self explanatory. Here's where we keep out db models.
 ```
 
-##### `routes`
+#### `routes`
 
 ```
 Contains the routes encapsulated for each service.
 Exported as global router through index.ts
 ```
 
-##### `services`
+#### `services`
 
 ```
 Contains each individual service and its ice factory.
