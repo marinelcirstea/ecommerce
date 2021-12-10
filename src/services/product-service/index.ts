@@ -1,70 +1,66 @@
-import { IFilterOptions, IProductModel } from "@interfaces/";
+import {
+  CollectionFilter,
+  IFilterOptions,
+  IProductDocument,
+  IProductModel,
+  KeysOfModel,
+} from "@interfaces/";
 import CustomError from "@libs/custom-error";
 import obj from "@libs/object-utils";
-import { productCollection } from "@services/db-collection-factory";
 import { makeProduct } from "./factory";
 import { makeUpdateProduct } from "./factory";
+import Product from "@models/product-model";
 
-//
-// TODO: Add relevant types
-//
+type IFilter = CollectionFilter<IProductDocument>;
 
 async function createProduct(reqBody: IProductModel) {
-  // this is more like validation, not an actual factory..
-  // it could actually just go through validation without returning anything
-  // Unless we decide to create the slugs server-side or do some future changes
   const validProduct = makeProduct(reqBody);
 
-  const newProduct = await productCollection.createOne(validProduct);
+  const newProduct = new Product(validProduct);
+
+  await newProduct.save();
 
   return newProduct;
 }
 
-async function getProduct(filter: any, options?: IFilterOptions) {
-  if (!filter || !Object.keys(filter)[0]) {
+async function getProduct(filter: IFilter, options: IFilterOptions = {}) {
+  if (!Object.keys(filter)[0]) {
     throw new Error("Empty object passed as collection filter.");
   }
-  const product = await productCollection.findOne(filter);
+  const product = await Product.findOne(filter);
 
   if (!product) {
     throw new CustomError("Product not found.", 404);
   }
 
-  if (!options) return product;
-
   const { exclude, pick } = options;
 
-  // you can't include and exclude fields at the same time.
-  if (exclude && pick) {
-    throw new Error("You can either use `options.exclude` or `options.pick`. NOT BOTH!");
-  }
-
-  // delete everything passed in 'options.exclude' array
-  if (exclude && exclude[0]) {
+  if (Array.isArray(exclude)) {
     return obj(product).exclude(exclude);
   }
 
-  // delete everything, except what's in "options.pick" array
-  if (pick && pick[0]) {
+  if (Array.isArray(pick)) {
     return obj(product).pick(pick);
   }
+
+  return product;
 }
 
-async function updateProduct(filter: any, data: any) {
+async function updateProduct(filter: IFilter, data: KeysOfModel<IProductModel>) {
   if (!filter || !Object.keys(filter)[0]) {
     throw new Error("Empty object passed as collection filter.");
   }
   const validUpdate = makeUpdateProduct(data);
 
-  const ack = await productCollection.updateOne(filter, validUpdate);
+  const ack = await Product.updateOne(filter, validUpdate, { upsert: false });
   if (!ack.acknowledged) {
     // TODO: add critical error logging
     throw new CustomError(`Failed to update product.`, 400);
   }
 }
 
-async function deleteProduct(filter: any) {
-  const del = await productCollection.deleteOne(filter);
+async function deleteProduct(filter: IFilter) {
+  const del = await Product.deleteOne(filter);
 
   if (del.deletedCount === 0) {
     throw new Error(`Failed to delete document from products collection.`);

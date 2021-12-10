@@ -1,3 +1,5 @@
+import { FilterQuery, Model, ObjectId } from "mongoose";
+
 export interface ISomeObject {
   [key: string]: any;
 }
@@ -97,7 +99,54 @@ export interface ICategoryDocument extends ICategoryModel {
   _id: string;
 }
 
+/**
+ * @type Model Mongoose Model
+ */
+export type KeysOfModel<Model> = { [key in keyof Model]?: Model[key] };
+
+/**
+ * @type Doc Mongoose Document Model
+ */
+export type CollectionFilter<Doc> = FilterQuery<Model<Doc>>;
+
 export interface IFilterOptions {
   exclude?: string[];
   pick?: string[];
+}
+
+export interface IShippingAddressModel {
+  country: string;
+  city: string;
+  line1: string;
+  line2: string;
+  state: string;
+  postalCode: string;
+}
+export interface IShippingOption {}
+
+export interface IOrderModel {
+  userId: string;
+  items: string[]; // array of ids?
+  total: number[];
+  shipping: string;
+  address: IShippingAddressModel;
+}
+
+export interface IOrderDocument extends IOrderModel {
+  _id: string;
+}
+
+export interface IAddressModel {
+  userId: ObjectId;
+  country: string;
+  line1: string;
+  line2: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  phone: string;
+  email: string;
+}
+export interface IAddressDocument extends IAddressModel {
+  _id: string;
 }

@@ -1,69 +1,67 @@
-import { IFilterOptions, ICategoryModel } from "@interfaces/";
+import {
+  IFilterOptions,
+  ICategoryModel,
+  ICategoryDocument,
+  KeysOfModel,
+  CollectionFilter,
+} from "@interfaces/";
 import CustomError from "@libs/custom-error";
 import obj from "@libs/object-utils";
-import { categoryCollection } from "@services/db-collection-factory";
 import { makeCategory, makeUpdateCategory } from "./factory";
+import Category from "@models/category-model";
 
-//
-// TODO: Add relevant types
-//
+type IFilter = CollectionFilter<ICategoryDocument>;
 
 async function createCategory(reqBody: ICategoryModel) {
-  // this is more like validation, not an actual factory..
-  // it could actually just go through validation without returning anything
-  // Unless we decide to create the slugs server-side or do some future changes
   const validCategory = makeCategory(reqBody);
 
-  const newCategory = await categoryCollection.createOne(validCategory);
+  const newCategory = new Category(validCategory);
+
+  await newCategory.save();
 
   return newCategory;
 }
 
-async function getCategory(filter: any, options?: IFilterOptions) {
-  if (!filter || !Object.keys(filter)[0]) {
+async function getCategory(filter: IFilter, options: IFilterOptions = {}) {
+  if (!Object.keys(filter)[0]) {
     throw new Error("Empty object passed as collection filter.");
   }
-  const category = await categoryCollection.findOne(filter);
+
+  const category = await Category.findOne(filter);
 
   if (!category) {
     throw new CustomError("Category not found.", 404);
   }
 
-  if (!options) return category;
-
   const { exclude, pick } = options;
 
-  // you can't include and exclude fields at the same time.
-  if (exclude && pick) {
-    throw new Error("You can either use `options.exclude` or `options.pick`. NOT BOTH!");
-  }
-
-  // delete everything passed in 'options.exclude' array
-  if (exclude && exclude[0]) {
+  if (Array.isArray(exclude)) {
     return obj(category).exclude(exclude);
   }
 
-  // delete everything, except what's in "options.pick" array
-  if (pick && pick[0]) {
+  if (Array.isArray(pick)) {
     return obj(category).pick(pick);
   }
+
+  return category;
 }
 
-async function updateCategory(filter: any, data: any) {
-  if (!filter || !Object.keys(filter)[0]) {
+async function updateCategory(filter: IFilter, data: KeysOfModel<ICategoryModel>) {
+  if (!Object.keys(filter)[0]) {
     throw new Error("Empty object passed as collection filter.");
   }
+
   const validUpdate = makeUpdateCategory(data);
 
-  const ack = await categoryCollection.updateOne(filter, validUpdate);
+  const ack = await Category.updateOne(filter, validUpdate, { upsert: false });
   if (!ack.acknowledged) {
     // TODO: add critical error logging
     throw new CustomError(`Failed to update category.`, 400);
   }
 }
 
-async function deleteCategory(filter: any) {
-  const del = await categoryCollection.deleteOne(filter);
+async function deleteCategory(filter: IFilter) {
+  const del = await Category.deleteOne(filter);
 
   if (del.deletedCount === 0) {
     throw new Error(`Failed to delete document from categories collection.`);

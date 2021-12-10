@@ -3,10 +3,7 @@ import CustomError from "@libs/custom-error";
 import { buildTokens, clearTokens, setTokens } from "@libs/jwt";
 import { compare } from "@libs/string-utils/hash-and-compare";
 import { isEmail, isString } from "@libs/string-utils";
-
-// we use userCollection instead of userService
-// so we can send custom errors
-import { userCollection } from "./db-collection-factory";
+import User from "@models/user-model";
 
 export interface IReqBody {
   [key: string]: any;
@@ -20,7 +17,7 @@ const loginWithEmailAndPassword = async (reqBody: IReqBody, res: Response) => {
     throw invalid;
   }
 
-  const user = await userCollection.findOne({ email });
+  const user = await User.findOne({ email });
   if (!user) throw invalid;
 
   const isMatch = await compare(password, user.password);
