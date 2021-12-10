@@ -114,30 +114,15 @@ export interface IFilterOptions {
   pick?: string[];
 }
 
-export interface IShippingAddressModel {
-  country: string;
-  city: string;
-  line1: string;
-  line2: string;
-  state: string;
-  postalCode: string;
+export interface IShippingModel {
+  title: string;
+  price: number;
 }
-export interface IShippingOption {}
-
-export interface IOrderModel {
-  userId: string;
-  items: string[]; // array of ids?
-  total: number[];
-  shipping: string;
-  address: IShippingAddressModel;
-}
-
-export interface IOrderDocument extends IOrderModel {
+export interface IShippingDocument extends IShippingModel {
   _id: string;
 }
 
-export interface IAddressModel {
-  userId: ObjectId;
+interface IAddressModel {
   country: string;
   line1: string;
   line2: string;
@@ -147,6 +132,16 @@ export interface IAddressModel {
   phone: string;
   email: string;
 }
-export interface IAddressDocument extends IAddressModel {
+
+export interface IOrderModel {
+  user: ObjectId;
+  items: string[]; // array of ids?
+  itemsTotal: number;
+  shipping: IShippingModel;
+  address: IAddressModel;
+  total: number;
+}
+
+export interface IOrderDocument extends IOrderModel {
   _id: string;
 }
