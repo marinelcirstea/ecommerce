@@ -70,6 +70,7 @@ export interface IProductModel {
   description: string;
   metaDescription: string;
   slug: string;
+  price: number;
   // categories: IProductModelCategoryStructure[];
   // thumbnail?: string;
   // images?: IProductModelImageStructure[];
@@ -112,6 +113,22 @@ export type CollectionFilter<Doc> = FilterQuery<Model<Doc>>;
 export interface IFilterOptions {
   exclude?: string[];
   pick?: string[];
+}
+
+export interface ICartItemModel {
+  _id: string;
+  title: string;
+  price: number;
+}
+
+export interface ICartModel {
+  items: { item: ICartItemModel; quantity: number }[];
+  userId?: string;
+  deviceId?: string;
+}
+
+export interface ICartDocument extends ICartModel {
+  _id: string;
 }
 
 export interface IShippingModel {
