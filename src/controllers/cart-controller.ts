@@ -5,13 +5,13 @@ async function createCart(req: Request, res: Response) {
   const session = res.locals.token;
   const cart = await cartService.createCart(req.body, session?.userId || "");
 
-  return res.status(200).json({ success: true, message: "Cart created successfully.", data: cart });
+  return res.status(200).json({ success: true, message: "Cart created successfully.", cart });
 }
 
 async function getCart(req: Request, res: Response) {
   const cart = await cartService.getCart(req.params.id);
 
-  return res.status(200).json({ success: true, message: "Cart fetched successfully.", data: cart });
+  return res.status(200).json({ success: true, message: "Cart fetched successfully.", cart });
 }
 
 async function updateCart(req: Request, res: Response) {
