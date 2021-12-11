@@ -96,3 +96,13 @@ export function validateProductSlug(slug: string) {
     );
   }
 }
+
+export function validateProductPrice(price: number) {
+  if (typeof price !== "number") {
+    throw new CustomError(`Price is invalid. Expected number, but received ${typeof price}.`, 400);
+  }
+
+  if (price < 0) {
+    throw new CustomError("Minimum price is 0.", 400);
+  }
+}

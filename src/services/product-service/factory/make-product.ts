@@ -3,6 +3,7 @@ import {
   validateProductDescription,
   validateProductMetaDescription,
   validateProductMetaTitle,
+  validateProductPrice,
   validateProductSlug,
   validateProductTitle,
 } from "./validation-helpers";
@@ -13,6 +14,7 @@ export function makeProduct({
   description,
   metaDescription,
   slug,
+  price,
 }: IProductModel): Readonly<IProductModel> {
   validateProductTitle(title);
 
@@ -23,6 +25,7 @@ export function makeProduct({
   metaDescription && validateProductMetaDescription(metaDescription);
 
   validateProductSlug(slug);
+  validateProductPrice(price);
 
   return Object.freeze({
     title,
@@ -30,5 +33,6 @@ export function makeProduct({
     description,
     metaDescription: metaDescription ?? description,
     slug,
+    price,
   });
 }
