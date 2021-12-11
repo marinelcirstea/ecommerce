@@ -5,6 +5,7 @@ import {
   validateProductMetaTitle,
   validateProductSlug,
   validateProductTitle,
+  validateProductPrice,
 } from "./validation-helpers";
 
 export function makeUpdateProduct({
@@ -13,6 +14,7 @@ export function makeUpdateProduct({
   description,
   metaDescription,
   slug,
+  price,
 }: {
   [key: string]: any;
 }) {
@@ -43,6 +45,12 @@ export function makeUpdateProduct({
   if (slug) {
     validateProductSlug(slug);
     actualUpdateObject.slug = slug;
+  }
+
+  // P || P === 0 to avoid skipping if P is 0
+  if (price || price === 0) {
+    validateProductPrice(price);
+    actualUpdateObject.price = price;
   }
   // Should we throw an error with any unaccepted/unknonw keys?
 
