@@ -6,7 +6,7 @@ const ShippingSchema = new Schema<IShippingDocument>(
     title: { type: String, required: true },
     price: { type: Number, default: 0 },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true }
 );
 
 const ShippingModel = model<IShippingDocument>("Shipping", ShippingSchema);

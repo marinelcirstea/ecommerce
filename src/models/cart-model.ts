@@ -13,7 +13,7 @@ const CartSchema = new Schema<ICartDocument>(
     userId: { type: String }, // pointless to create a refference to User collection
     deviceId: { type: String },
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true }
 );
 
 const CartModel = model<ICartDocument>("Cart", CartSchema);
