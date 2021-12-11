@@ -12,7 +12,7 @@ async function getShippingOption(req: Request, res: Response) {
 
   return res
     .status(200)
-    .json({ success: true, message: "Shipping option fetched successfully.", data: shipping });
+    .json({ success: true, message: "Shipping option fetched successfully.", shipping });
 }
 
 async function getAllShippingOptions(_req: Request, res: Response) {
@@ -20,7 +20,7 @@ async function getAllShippingOptions(_req: Request, res: Response) {
 
   return res
     .status(200)
-    .json({ success: true, message: "Shipping options fetched successfully.", data: shipping });
+    .json({ success: true, message: "Shipping options fetched successfully.", shipping });
 }
 
 async function updateShippingOption(req: Request, res: Response) {
