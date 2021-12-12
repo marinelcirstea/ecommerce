@@ -32,7 +32,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "module-alias": "^2.2.2",
-    "mongoose": "^6.0.13"
+    "mongoose": "^6.0.13",
+    "stripe": "^8.193.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
