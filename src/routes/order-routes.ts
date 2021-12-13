@@ -7,10 +7,9 @@ export const orderRoutes = Router();
 
 /**
  * Create a new Order
- * @access  public (only for testing)
- * TODO     make private
+ * @access  private
  */
-orderRoutes.post("/orders", catchException(orderController.createOrder));
+orderRoutes.post("/orders", authMiddleware, catchException(orderController.createOrder));
 
 /**
  * Get Order
