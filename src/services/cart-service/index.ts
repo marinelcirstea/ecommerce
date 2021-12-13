@@ -1,20 +1,23 @@
-import { ICartModel, KeysOfModel } from "@interfaces/";
+import { ICartModel, ICartItemModel } from "@interfaces/";
 import CustomError from "@libs/custom-error";
 import Cart from "@models/cart-model";
+import { validateCart } from "./validation-helpers";
 
-async function createCart(data: ICartModel, userId: string = "") {
-  const cart = new Cart({
-    ...data,
-    userId,
-  });
+async function createOrUpdateCart({ cartId, items }: { cartId: string; items: ICartModel }) {
+  const cartItems = validateCart(items);
 
+  const cart = cartId ? await updateCart(cartId, cartItems) : await createCart(cartItems);
+  return cart._id;
+}
+
+async function createCart(items: ICartItemModel[]) {
+  const cart = new Cart({ items });
   await cart.save();
-
   return cart;
 }
 
-async function getCart(cartId: string) {
-  const cart = await Cart.findOne({ _id: cartId }).lean().populate("items.item", "title price");
+async function getCart(_id: string) {
+  const cart = await Cart.findOne({ _id }).lean().populate("items.item", "title price");
 
   if (!cart) {
     throw new CustomError("Cart not found.", 404);
@@ -23,16 +26,20 @@ async function getCart(cartId: string) {
   return cart;
 }
 
-async function updateCart(cartId: string, data: KeysOfModel<ICartModel>) {
-  const upd = await Cart.updateOne({ _id: cartId }, data);
+async function updateCart(_id: string, items: ICartItemModel[]) {
+  const cart = await Cart.findOneAndUpdate(
+    { _id },
+    { items },
+    {
+      upsert: true,
+      new: true,
+    }
+  );
 
-  if (!upd.acknowledged) {
-    throw new CustomError("Failed to update cart.", 400);
-  }
+  return cart;
 }
 
 export default Object.freeze({
-  createCart,
+  createOrUpdateCart,
   getCart,
-  updateCart,
 });
