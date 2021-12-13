@@ -10,7 +10,7 @@ const CartSchema = new Schema<ICartDocument>(
         quantity: { type: Number, default: 1 },
       },
     ],
-    createdAt: { type: Date, default: Date.now(), expires: "1d" },
+    // createdAt: { type: Date, default: Date.now(), expires: "7d" },
   },
   { timestamps: true }
 );
