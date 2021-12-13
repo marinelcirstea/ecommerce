@@ -10,8 +10,7 @@ const CartSchema = new Schema<ICartDocument>(
         quantity: { type: Number, default: 1 },
       },
     ],
-    userId: { type: String }, // pointless to create a refference to User collection
-    deviceId: { type: String },
+    createdAt: { type: Date, default: Date.now(), expires: "1d" },
   },
   { timestamps: true }
 );
