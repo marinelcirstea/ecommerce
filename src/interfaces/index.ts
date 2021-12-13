@@ -1,4 +1,4 @@
-import { FilterQuery, Model, ObjectId } from "mongoose";
+import { FilterQuery, Model } from "mongoose";
 
 export interface ISomeObject {
   [key: string]: any;
@@ -115,19 +115,22 @@ export interface IFilterOptions {
   pick?: string[];
 }
 
-export interface ICartItemModel {
-  _id: string;
-  title: string;
-  price: number;
-}
+// export interface ICartItemModel {
+//   _id: string;
+//   title: string;
+//   price: number;
+// }
 
+export interface ICartItemModel {
+  item: string;
+  quantity: number;
+}
 export interface ICartModel {
-  items: { item: ICartItemModel; quantity: number }[];
-  userId?: string;
-  deviceId?: string;
+  items: ICartItemModel[];
 }
 
 export interface ICartDocument extends ICartModel {
+  createdAt: any;
   _id: string;
 }
 
@@ -150,13 +153,30 @@ interface IAddressModel {
   email: string;
 }
 
+export type IOrderStatus =
+  | "pending"
+  | "awaiting_payment"
+  | "payment_failed"
+  | "paid"
+  | "fulfilled"
+  | "shipped"
+  | "partially_shipped"
+  | "completed"
+  | "cancelled"
+  | "declined"
+  | "refunded"
+  | "partially_refunded"
+  | "disputed"
+  | "manual_verification_required";
+
 export interface IOrderModel {
-  user: ObjectId;
-  items: string[]; // array of ids?
+  user?: string;
+  cart: ICartDocument | string;
   itemsTotal: number;
-  shipping: IShippingModel;
-  address: IAddressModel;
+  shipping?: IShippingModel;
+  address?: IAddressModel;
   total: number;
+  status: IOrderStatus;
 }
 
 export interface IOrderDocument extends IOrderModel {
