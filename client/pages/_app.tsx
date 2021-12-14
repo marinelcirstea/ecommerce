@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import AdminLayout from "../layouts/admin-layout";
 import { SWRConfig } from "swr";
 import fetchJson from "@libs/fetch-json";
-import { IUserModel } from "@shared";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPage & {

@@ -4,7 +4,7 @@
 
     /* Projects */
     // "incremental": true,                              /* Enable incremental compilation */
-    // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
+    "composite": true /* Enable constraints that allow a TypeScript project to be used with project references. */,
     // "tsBuildInfoFile": "./",                          /* Specify the folder for .tsbuildinfo incremental compilation files. */
     // "disableSourceOfProjectReferenceRedirect": true,  /* Disable preferring source files instead of declaration files when referencing composite projects */
     // "disableSolutionSearching": true,                 /* Opt a project out of multi-project reference checking when editing. */
@@ -27,24 +27,25 @@
     "module": "commonjs" /* Specify what module code is generated. */,
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     // "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
-    "baseUrl": "./src" /* Specify the base directory to resolve non-relative module names. */,
+    "baseUrl": "." /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
-      "@configs/*": ["./configs/*", "./configs"],
-      "@configs*": ["./configs/*", "./configs"],
-      "@controllers/*": ["./controllers/*", "./controllers"],
-      "@controllers*": ["./controllers/*", "./controllers"],
-      "@interfaces/*": ["./interfaces/*", "./interfaces"],
-      "@interfaces*": ["./interfaces/*", "./interfaces"],
-      "@libs/*": ["./libs", "./libs/*"],
-      "@libs*": ["./libs", "./libs/*"],
-      "@middlewares/*": ["./middlewares/*", "./middlewares"],
-      "@middlewares*": ["./middlewares/*", "./middlewares"],
-      "@models/*": ["./models/*", "./models"],
-      "@models*": ["./models/*", "./models"],
-      "@routes/*": ["./routes/*", "./routes"],
-      "@routes*": ["./routes/*", "./routes"],
-      "@services/*": ["./services", "./services/*"],
-      "@services*": ["./services", "./services/*"]
+      "@shared": ["./shared"],
+      "@configs/*": ["./server/configs/*", "./server/configs"],
+      "@configs*": ["./server/configs/*", "./server/configs"],
+      "@controllers/*": ["./server/controllers/*", "./server/controllers"],
+      "@controllers*": ["./server/controllers/*", "./server/controllers"],
+      "@interfaces/*": ["./server/interfaces/*", "./server/interfaces"],
+      "@interfaces*": ["./server/interfaces/*", "./server/interfaces"],
+      "@libs/*": ["./server/libs", "./server/libs/*"],
+      "@libs*": ["./server/libs", "./server/libs/*"],
+      "@middlewares/*": ["./server/middlewares/*", "./server/middlewares"],
+      "@middlewares*": ["./server/middlewares/*", "./server/middlewares"],
+      "@models/*": ["./server/models/*", "./server/models"],
+      "@models*": ["./server/models/*", "./server/models"],
+      "@routes/*": ["./server/routes/*", "./server/routes"],
+      "@routes*": ["./server/routes/*", "./server/routes"],
+      "@services/*": ["./server/services", "./server/services/*"],
+      "@services*": ["./server/services", "./server/services/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
