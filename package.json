@@ -2,24 +2,24 @@
   "name": "ecommerce",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "dist/server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/server.js\"",
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/server/server.js\"",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "rimraf dist && tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server/server.js"
   },
   "_moduleAliases": {
-    "@configs": "dist/configs",
-    "@controllers": "dist/controllers",
-    "@interfaces": "dist/interfaces",
-    "@libs": "dist/libs",
-    "@middlewares": "dist/middlewares",
-    "@models": "dist/models",
-    "@routes": "dist/routes",
-    "@services": "dist/services"
+    "@configs": "dist/server/configs",
+    "@controllers": "dist/server/controllers",
+    "@interfaces": "dist/server/interfaces",
+    "@libs": "dist/server/libs",
+    "@middlewares": "dist/server/middlewares",
+    "@models": "dist/server/models",
+    "@routes": "dist/server/routes",
+    "@services": "dist/server/services"
   },
   "keywords": [],
   "author": "",

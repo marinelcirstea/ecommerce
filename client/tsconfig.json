@@ -16,11 +16,13 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@components*":["components", "components/*"],
-      "@layouts*":["layouts", "layouts/*"],
-      "@libs*":["libs", "libs/*"],
+      "@components*": ["components", "components/*"],
+      "@layouts*": ["layouts", "layouts/*"],
+      "@libs*": ["libs", "libs/*"],
+      "@shared": ["../shared"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "references": [{ "path": "../shared" }]
 }
