@@ -7,6 +7,7 @@ import { productRoutes } from "./product-routes";
 import { shippingRoutes } from "./shipping-routes";
 import { userRoutes } from "./user-routes";
 import { stripeRoutes } from "./stripe-routes";
+import { checkoutRoutes } from "./checkout-routes";
 
 const globalRouter = Router();
 
@@ -18,5 +19,6 @@ globalRouter.use(productRoutes);
 globalRouter.use(shippingRoutes);
 globalRouter.use(userRoutes);
 globalRouter.use(stripeRoutes);
+globalRouter.use(checkoutRoutes);
 
 export default globalRouter;
