@@ -27,7 +27,11 @@
     "module": "commonjs" /* Specify what module code is generated. */,
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     // "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
+<<<<<<< HEAD
     "baseUrl": "./src" /* Specify the base directory to resolve non-relative module names. */,
+=======
+    "baseUrl": "./server" /* Specify the base directory to resolve non-relative module names. */,
+>>>>>>> parent of b4a35a3 (enabled ts composition)
     "paths": {
       "@configs/*": ["./configs/*", "./configs"],
       "@configs*": ["./configs/*", "./configs"],
@@ -115,6 +119,11 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
+<<<<<<< HEAD
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "dist"]
+=======
+  "include": ["./server/**/*"],
+  "exclude": ["node_modules", "dist", "client"]
+>>>>>>> parent of b4a35a3 (enabled ts composition)
 }
