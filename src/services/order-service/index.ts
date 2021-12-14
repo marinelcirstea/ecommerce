@@ -21,19 +21,14 @@ async function getOrder(id: string) {
   return order;
 }
 
-// async function getOrders(range:any){}
-
 async function updateOrder(id: string, data: KeysOfModel<IOrderModel>) {
-  const ack = await Order.updateOne({ _id: id }, data, { upsert: false });
+  const ack = await Order.updateOne({ _id: id }, data, { upsert: false, new: true });
 
   if (!ack.acknowledged) {
     // TODO: add critical error logging
     throw new CustomError(`Failed to update order.`, 400);
   }
 }
-
-// should we create a deleteOrder function?
-// async function deleteOrder(){}
 
 export default Object.freeze({
   createOrder,
