@@ -32,7 +32,7 @@ async function getUser(filter: IFilter, options: IFilterOptions = {}) {
   if (!Object.keys(filter)[0]) {
     throw new Error("Empty object passed as collection filter.");
   }
-  const user = await User.findOne(filter);
+  const user = await User.findOne(filter).lean();
 
   if (!user) {
     throw new CustomError("User not found.", 404);
@@ -41,7 +41,7 @@ async function getUser(filter: IFilter, options: IFilterOptions = {}) {
   const { exclude, pick } = options;
 
   if (Array.isArray(exclude)) {
-    return obj(user).exclude(exclude);
+    return obj(user).exclude(exclude); // strange behaviour if not fetched with .lean()
   }
 
   if (Array.isArray(pick)) {
