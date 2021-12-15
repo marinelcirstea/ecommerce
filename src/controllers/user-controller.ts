@@ -9,7 +9,7 @@ async function createUser(req: Request, res: Response) {
 
   setTokens(res, accessToken, refreshToken);
 
-  return res.status(200).json({ success: true, message: "User created successfully." });
+  return res.status(200);
 }
 
 async function getCurrentUser(_req: Request, res: Response) {
@@ -20,7 +20,7 @@ async function getCurrentUser(_req: Request, res: Response) {
     { pick: ["firstName", "lastName", "email"] }
   );
 
-  return res.status(200).json({ success: true, message: "User fetched successfully.", user });
+  return res.status(200).json(user);
 }
 
 async function deleteCurrentUser(_req: Request, res: Response) {
@@ -30,7 +30,7 @@ async function deleteCurrentUser(_req: Request, res: Response) {
 
   clearTokens(res);
 
-  return res.status(200).json({ success: true, message: "User deleted successfully." });
+  return res.status(200);
 }
 
 async function updateCurrentUser(req: Request, res: Response) {
@@ -38,7 +38,7 @@ async function updateCurrentUser(req: Request, res: Response) {
 
   await userService.updateUser({ _id: session.userId }, req.body);
 
-  return res.status(200).json({ success: true, message: "User updated." });
+  return res.status(200);
 }
 
 //
