@@ -12,6 +12,12 @@ export const authRoutes = Router();
 authRoutes.post("/auth/login", catchException(authController.login));
 
 /**
+ * Login
+ * @access  public
+ */
+authRoutes.post("/auth/refresh", catchException(authController.refresh));
+
+/**
  * Logout
  * @access  private
  */
