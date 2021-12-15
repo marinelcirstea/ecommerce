@@ -15,7 +15,7 @@ app.use(compression());
 /**
  * Accept requests from other websites
  */
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.use(express.json());
 
