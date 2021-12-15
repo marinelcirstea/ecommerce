@@ -1,8 +1,10 @@
+import "../styles/globals.css";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import AdminLayout from "@layouts/admin-layout";
-import { SWRConfig } from "swr";
-import fetchJson from "@libs/fetch-json";
+import { UserProvider } from "contexts/user-context";
+import { ToastProvider } from "contexts/toast-context";
+import HeaderComponent from "@components/header";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPage & {
@@ -13,30 +15,24 @@ type AppPropsWithLayout = AppProps & {
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
-    <SWRConfig
-      value={{
-        refreshInterval: 3000,
-        fetcher: fetchJson,
-        onError: (err) => {
-          console.error(err);
-        },
-      }}
-    >
-      {Component.isAdmin ? (
-        <AdminLayout>
-          <p>isAdmin</p>
+    <UserProvider>
+      <ToastProvider autoExpireIn={3500}>
+        <HeaderComponent />
+        {Component.isAdmin ? (
+          <AdminLayout>
+            <p>isAdmin</p>
+            <Component {...pageProps} />
+          </AdminLayout>
+        ) : Component.isUser ? (
+          // add some user layout
+          <>
+            <p>isUser</p>
+            <Component {...pageProps} />
+          </>
+        ) : (
           <Component {...pageProps} />
-        </AdminLayout>
-      ) : Component.isUser ? (
-        // add some user layout
-        <>
-          <p>isUser</p>
-          <Component {...pageProps} />
-        </>
-      ) : (
-        <Component {...pageProps} />
-      )}
-      ;
-    </SWRConfig>
+        )}
+      </ToastProvider>
+    </UserProvider>
   );
 }
