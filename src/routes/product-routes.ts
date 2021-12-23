@@ -16,6 +16,12 @@ productRoutes.post("/products", catchException(productController.createProduct))
  * Get product
  * @access  public
  */
+productRoutes.get("/products", catchException(productController.getAllProducts));
+
+/**
+ * Get product
+ * @access  public
+ */
 productRoutes.get("/products/:slug", catchException(productController.getProduct));
 
 /**

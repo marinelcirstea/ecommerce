@@ -10,7 +10,7 @@ async function createOrUpdateCart(req: Request, res: Response) {
 async function getCart(req: Request, res: Response) {
   const cart = await cartService.getCart(req.params.id);
 
-  return res.status(200).json({ success: true, message: "Cart fetched successfully.", cart });
+  return res.status(200).json(cart);
 }
 
 export default Object.freeze({

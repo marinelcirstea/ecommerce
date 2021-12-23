@@ -13,9 +13,7 @@ async function checkout(req: Request, res: Response) {
 
   const order = await checkoutService.checkout(req.body, session?.userId);
 
-  return res
-    .status(200)
-    .json({ success: true, message: "Order created successfully.", data: order });
+  return res.status(200).json(order);
 }
 
 export default Object.freeze({

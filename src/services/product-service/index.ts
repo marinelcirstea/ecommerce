@@ -16,6 +16,11 @@ type IFilter = CollectionFilter<IProductDocument>;
 async function createProduct(reqBody: IProductModel) {
   const validProduct = makeProduct(reqBody);
 
+  const product = await Product.findOne({ slug: validProduct.slug });
+  if (product) {
+    throw new CustomError("Slug already exists.", 400);
+  }
+
   const newProduct = new Product(validProduct);
 
   await newProduct.save();
@@ -46,6 +51,17 @@ async function getProduct(filter: IFilter, options: IFilterOptions = {}) {
   return product;
 }
 
+// add filters, pages, etc
+async function getAllProducts() {
+  const products = await Product.find();
+
+  if (!products[0]) {
+    throw new CustomError("No products found.", 404);
+  }
+
+  return products;
+}
+
 async function updateProduct(filter: IFilter, data: KeysOfModel<IProductModel>) {
   if (!filter || !Object.keys(filter)[0]) {
     throw new Error("Empty object passed as collection filter.");
@@ -70,6 +86,7 @@ async function deleteProduct(filter: IFilter) {
 export default Object.freeze({
   createProduct,
   getProduct,
+  getAllProducts,
   updateProduct,
   deleteProduct,
 });
