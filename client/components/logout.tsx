@@ -9,7 +9,7 @@ export const Logout: FC = () => {
 
   const onLogout = async () => {
     await captain.post(`${environment.apiUrl}/logout`, null);
-    dispatch({ type: "setuser", payload: undefined });
+    dispatch({ type: "SET_USER", payload: undefined });
     Router.replace("/");
   };
 

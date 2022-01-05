@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import Link, { LinkProps } from "next/link";
 import PropTypes from "prop-types";
+import React from "react";
 
 export interface NavLinkProps
   extends React.PropsWithChildren<LinkProps & React.HTMLAttributes<HTMLHyperlinkElementUtils>> {
   href: string;
   exact: boolean;
-  children: React.ReactChildren | string;
+  children: React.ReactChildren | React.ReactNode | string;
 }
 
 function NavLink({ href, exact, children, ...props }: NavLinkProps) {
