@@ -1,8 +1,8 @@
-import captain from "@libs/captain";
-import { environment } from "@libs/environment";
+import captain from "libs/captain";
+import { environment } from "libs/environment";
 import * as React from "react";
 
-type Action = { type: "setuser"; payload: any } | { type: "decrement" };
+type Action = { type: "SET_USER"; payload: any };
 type Dispatch = (action: Action) => void;
 type State = {
   user:
@@ -21,7 +21,7 @@ const UserStateContext = React.createContext<{ state: State; dispatch: Dispatch 
 
 function userReducer(state: State, action: Action) {
   switch (action.type) {
-    case "setuser": {
+    case "SET_USER": {
       return { user: action.payload };
     }
     default: {
@@ -39,7 +39,7 @@ function UserProvider({ children }: UserProviderProps) {
       if (state.user === undefined) {
         const res = await captain.get(`${environment.apiUrl}/api/users/me`);
         if (res.ok && res.data) {
-          dispatch({ type: "setuser", payload: res.data });
+          dispatch({ type: "SET_USER", payload: res.data });
         }
       }
     })();
@@ -63,4 +63,3 @@ function useUser() {
 }
 
 export { UserProvider, useUser };
-export default useUser;
