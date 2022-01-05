@@ -1,10 +1,12 @@
 import "../styles/globals.css";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
-import AdminLayout from "@layouts/admin-layout";
 import { UserProvider } from "contexts/user-context";
 import { ToastProvider } from "contexts/toast-context";
-import HeaderComponent from "@components/header";
+import { SettingsProvider } from "contexts/settings-context";
+import AdminLayout from "components/layouts/admin-layout";
+import NavbarComponent from "components/navbars";
+import FooterComponent from "components/footers";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPage & {
@@ -13,26 +15,24 @@ type AppPropsWithLayout = AppProps & {
   };
 };
 
-export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <UserProvider>
-      <ToastProvider autoExpireIn={3500}>
-        <HeaderComponent />
-        {Component.isAdmin ? (
-          <AdminLayout>
-            <p>isAdmin</p>
-            <Component {...pageProps} />
-          </AdminLayout>
-        ) : Component.isUser ? (
-          // add some user layout
-          <>
-            <p>isUser</p>
-            <Component {...pageProps} />
-          </>
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </ToastProvider>
+      <SettingsProvider>
+        <ToastProvider autoExpireIn={5000}>
+          {Component.isAdmin ? (
+            <AdminLayout>
+              <Component {...pageProps} />
+            </AdminLayout>
+          ) : (
+            <>
+              <NavbarComponent />
+              <Component {...pageProps} />
+              <FooterComponent />
+            </>
+          )}
+        </ToastProvider>
+      </SettingsProvider>
     </UserProvider>
   );
 }
