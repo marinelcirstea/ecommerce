@@ -1,131 +1,48 @@
-import NavLink from "@components/link";
-import captain from "@libs/captain";
-import { environment } from "@libs/environment";
-import useToast from "contexts/toast-context";
-import { useUser } from "contexts/user-context";
-import { useState } from "react";
+import FeaturedCategoriesComponent from "components/ecommerce/featured-categories";
+import TrendingProductsComponent from "components/ecommerce/trending-products";
+import FrontPageHeroComponent from "components/hero";
+import NewsletterComponent from "components/newsletter";
 
-export default function Home() {
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const { user } = useUser();
-  const toast = useToast();
+const favorites = [
+  {
+    id: 1,
+    name: "Black Basic Tee",
+    price: "$32",
+    href: "#",
+    imageSrc: "https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-01.jpg",
+    imageAlt: "Model wearing women's black cotton crewneck tee.",
+  },
+  {
+    id: 2,
+    name: "Off-White Basic Tee",
+    price: "$32",
+    href: "#",
+    imageSrc: "https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-02.jpg",
+    imageAlt: "Model wearing women's off-white cotton crewneck tee.",
+  },
+  {
+    id: 3,
+    name: "Mountains Artwork Tee",
+    price: "$36",
+    href: "#",
+    imageSrc: "https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-03.jpg",
+    imageAlt:
+      "Model wearing women's burgundy red crewneck artwork tee with small white triangle overlapping larger black triangle.",
+  },
+];
 
-  const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("register clicked");
-    const res = await captain.post(`${environment.apiUrl}/api/users`, {
-      email,
-      password,
-      firstName,
-      lastName,
-    });
-    console.log("res:", res);
-  };
-  const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("login: ", email, password);
-    const login = await captain.post(`${environment.apiUrl}/api/auth/login`, { email, password });
-    console.log("login: ", login);
-  };
-
+export default function Example() {
   return (
-    <main>
-      {user?.email}
-      <header className="header">
-        <div className="logo">HAHA</div>
-        <nav className="nav">
-          <ul className="navUl">
-            <li className="navLi">
-              <NavLink href="/" exact className="navLink">
-                Home
-              </NavLink>
-            </li>
-            <li className="navLi">
-              <NavLink href="/products" className="navLink">
-                Products
-              </NavLink>
-            </li>
-            <li className="navLi">
-              <NavLink href="/categories" className="navLink">
-                Categories
-              </NavLink>
-            </li>
-            <li className="navLi">
-              <button className="logout">Logout</button>
-            </li>
-            <li className="navLi">
-              <NavLink href="/login" className="navLink">
-                Login
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
+    <div className="bg-white">
+      <main>
+        <FrontPageHeroComponent />
 
-      <form onSubmit={handleRegisterSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-        />
-        <br />
-        <label htmlFor="firstName">First name</label>
-        <input
-          type="text"
-          name="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.currentTarget.value)}
-        />
-        <br />
-        <label htmlFor="lastName">Last name</label>
-        <input
-          type="text"
-          name="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.currentTarget.value)}
-        />
-        <br />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.currentTarget.value)}
-        />
-        <br />
-        <button type="submit">Register</button>
-      </form>
-      <br />
-      <form onSubmit={handleLoginSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-        />
-        <br />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.currentTarget.value)}
-        />
-        <br />
-        <button type="submit">Login</button>
-      </form>
-      <br />
-      <br />
-      <button onClick={() => toast.error("error")}>Add toast</button>
-      <button onClick={() => toast.warn("warning")}>Add toast</button>
-      <button onClick={() => toast.notify("notification")}>Add toast</button>
-      <button onClick={() => toast.success("success")}>Add toast</button>
-    </main>
+        <TrendingProductsComponent />
+
+        <FeaturedCategoriesComponent />
+
+        <NewsletterComponent />
+      </main>
+    </div>
   );
 }
