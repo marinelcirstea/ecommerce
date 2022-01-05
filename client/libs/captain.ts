@@ -3,18 +3,16 @@ import { environment } from "./environment";
 export type FetchMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 const fn = async (url: string, options: any) => {
-  const res = await fetch(url, options);
-  console.log("res", res);
   let data;
-  try {
+  const res = await fetch(url, options);
+  const contentType = res.headers.get("content-type");
+
+  if (contentType && contentType.indexOf("application/json") !== -1) {
     data = await res.json();
-  } catch {
-    try {
-      data = await res.text();
-    } catch {}
+  } else {
+    data = await res.text();
   }
 
-  console.log("data", data);
   return { data, ok: res.ok, status: res.status, statusText: res.statusText };
 };
 
@@ -41,13 +39,14 @@ const fetcher = async (url: string, method: FetchMethod = "GET", payload: any = 
   let res = await fn(url, { ...options });
 
   if (res.status === 401) {
-    await fn(`${environment.apiUrl}/api/auth/refresh`, {
+    const refresh = await fn(`${environment.apiUrl}/api/auth/refresh`, {
       ...options,
       method: "POST",
       body: "",
     });
-
-    res = await fn(url, { ...options });
+    if (refresh.ok) {
+      res = await fn(url, { ...options });
+    }
   }
 
   return res;
